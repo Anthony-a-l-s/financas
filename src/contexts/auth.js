@@ -17,7 +17,8 @@ function AuthProvider({ children }) {
 
         async function loadingStorage(){
             
-            const storageUser = await AsyncStorage.getItem('@finToken')
+            const storageUser = await AsyncStorage.getItem('@finToken');
+            console.log(storageUser);
             if(storageUser){
                 const response = await api.get('/me', {
                     headers:{
@@ -25,6 +26,7 @@ function AuthProvider({ children }) {
                     }
                 })
                 .catch(()=> {
+                    console.log('deu ruim')
                     setUser(null);
                 })
                 api.defaults.headers['Authorization'] = `Bearer ${storageUser}`;
