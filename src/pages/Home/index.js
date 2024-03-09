@@ -56,7 +56,20 @@ export default function Home() {
         return () => isActive = false
 
 
-    }, [isFocused])
+    }, [isFocused, dateMovements])
+
+    async function hadleDelete(id){
+        try{
+            api.delete('/receives/delete',{
+                params:{
+                    item_id: id
+                }
+            })
+            setDatemovements(new Date());
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     return (
         <Background>
@@ -81,7 +94,7 @@ export default function Home() {
                 data={movements}
                 keyExtractor={item => item.id}
                 showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => <HistoricoList data={item}/>}
+                renderItem={({ item }) => <HistoricoList data={item} deleteItem={hadleDelete}/>}
                 contentContainerStyle={{paddingBottom: 20}}
             />
 
